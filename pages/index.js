@@ -26,7 +26,7 @@ const PostLink = props => (
 
                 a {
                     text-decoration: none;
-                    color: purple;
+                    color: orange;
                 }
 
                 a:hover {
