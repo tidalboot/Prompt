@@ -15,7 +15,7 @@ function getStories() {
 
 const PostLink = props => (
     <li>
-        <Link  href={`/story?title=${props.title}`}>
+        <Link as={`/story=${props.id}`}  href={`/story?title=${props.title}`}>
             <a>{props.title}</a>
         </Link>
         <style jsx>
