@@ -8,7 +8,8 @@ function getStories() {
         { id: 'tumbleweed', title: "Tumbleweed Valley" },
         { id: 'lostGod', title: "In the Temple of the Lost God" },
         { id: 'icharus', title: "Icharus Rising" },
-        { id: 'scarsOfMalo', title: "Scars of Malo" }
+        { id: 'scarsOfMalo', title: "Scars of Malo" },
+        { id: 'test', title: "foo" }
     ]
 }
 
@@ -26,7 +27,7 @@ const PostLink = props => (
 
                 a {
                     text-decoration: none;
-                    color: orange;
+                    color: blue;
                 }
 
                 a:hover {
