@@ -29,9 +29,7 @@ app
         server.get('/storyData', async (req, res) => {
 
             const rawData = await readFileAsync('./stories/' + req.query.id + '.json')
-
             const jsonData = JSON.parse(rawData)
-
             res.json(jsonData)
         })
 

@@ -26,7 +26,10 @@ const Story = props => (
 )
 
 Story.getInitialProps = async context => {
-    const response = await fetch('http://localhost:3000/storyData?id=' + context.query.id)
+
+    const host = process.env.NODE_ENV == 'development' ? 'http://localhost:3000' : 'https://prompt.tidalboot.now.sh'
+
+    const response = await fetch(host + '/storyData?id=' + context.query.id)
     return await response.json()
 }
 
