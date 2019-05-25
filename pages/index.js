@@ -1,7 +1,6 @@
 
 import Layout from '../comps/MyLayout.js'
 import Link from 'next/link'
-import fetch from 'isomorphic-unfetch'
 
 const PostLink = props => (
     <li>
@@ -59,7 +58,7 @@ const Index = props => (
 
 Index.getInitialProps = async () => {
     const storyData = await import(`../stories/storyStore.json`)
-      
+
     return storyData
 }
 

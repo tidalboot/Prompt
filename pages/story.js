@@ -1,12 +1,13 @@
 
 import Layout from '../comps/MyLayout'
+import fetch from 'isomorphic-unfetch'
 
 const Story = props => (
     <Layout>
         <div>
-        <h1>{props.story.title}</h1>
+        <h1>{props.title}</h1>
         <div>
-            {props.story.content}
+            {props.content}
         </div>
         <style jsx>{`
             h1 {
@@ -21,15 +22,12 @@ const Story = props => (
             `}
         </style>
     </div>
-        {/* <Content props={props} /> */}
     </Layout>
 )
 
-Story.getInitialProps = async function() {
-    const tumbleweed = 'storyStore'
-    const fileName = '../stories/' + tumbleweed+ '.json';
-    const story = await import(fileName)  
-    return { story }
+Story.getInitialProps = async context => {
+    const response = await fetch('http://localhost:3000/storyData?id=' + context.query.id)
+    return await response.json()
 }
 
 export default Story
