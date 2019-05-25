@@ -1,36 +1,35 @@
 
-import { withRouter } from 'next/router'
 import Layout from '../comps/MyLayout'
-import Markdown from 'react-markdown'
-
-const Content = withRouter(props => (
-    <div>
-        <h1>{props.router.query.title}</h1>
-        <div className="markdown">
-            <Markdown source={`
-            This is the start of something new [link] (/link).
-
-            And yes we're not done yet
-
-            ### This is a title
-            `}    
-            />
-        </div>
-        <style jsx>{`
-            .markdown {
-                font-familt: 'Arial';
-                color: brown;
-            }
-            `}
-        </style>
-    </div>
-
-))
 
 const Story = props => (
     <Layout>
-        <Content />
+        <div>
+        <h1>{props.story.title}</h1>
+        <div>
+            {props.story.content}
+        </div>
+        <style jsx>{`
+            h1 {
+                color: #0C5647;
+            }
+            `}
+        </style>
+        <style jsx global>{`
+                * {
+                    font-family: Helvetica
+                }
+            `}
+        </style>
+    </div>
+        {/* <Content props={props} /> */}
     </Layout>
 )
+
+Story.getInitialProps = async function() {
+    const tumbleweed = 'storyStore'
+    const fileName = '../stories/' + tumbleweed+ '.json';
+    const story = await import(fileName)  
+    return { story }
+}
 
 export default Story

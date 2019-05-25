@@ -1,0 +1,9 @@
+{ 
+    "stories" : 
+        [
+            { "id": "tumbleweed", "title": "Tumbleweed Valley" },
+            { "id": "lostGod", "title": "In ze Temple of the Lost God" },
+            { "id": "icarus", "title": "Icarus Rising" },
+            { "id": "scarsOfMalo", "title": "Scars of Malo" }
+        ]
+}

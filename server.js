@@ -9,10 +9,10 @@ app
     .prepare()
     .then(() => {
         const server = express()
-
-        server.get('/story=:id', (req, res) => {
+        
+        server.get('/story/:id', (req, res) => {
             const actualPage = '/story'
-            const queryParameters = { title: req.params.id }
+            const queryParameters = { id: req.params.id }
             app.render(req, res, actualPage, queryParameters)
         })
 
@@ -28,4 +28,4 @@ app
         console.log(exception.stack)
         process.exit(1)
     })
-    })
+})

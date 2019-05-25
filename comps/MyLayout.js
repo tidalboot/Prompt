@@ -9,11 +9,9 @@ const doesItMatch = x == y
 const layoutStyle = {
     margin: 20,
     padding: 20,
-    border: '1px solid #DDD'
+    border: '1px solid #DDDs'
 }
 
-console.log({layoutStyle})
-console.log(doesItMatch)
 
 export default props => (
 

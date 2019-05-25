@@ -1,23 +1,19 @@
 
 import Layout from '../comps/MyLayout.js'
 import Link from 'next/link'
-
-
-function getStories() {
-    return [
-        { id: 'tumbleweed', title: "Tumbleweed Valley" },
-        { id: 'lostGod', title: "In the Temple of the Lost God" },
-        { id: 'icarus', title: "Icarus Rising" },
-        { id: 'scarsOfMalo', title: "Scars of Malo" },
-        { id: 'test', title: "foo" }
-    ]
-}
+import fetch from 'isomorphic-unfetch'
 
 const PostLink = props => (
     <li>
-        <Link as={`/story=${props.id}`}  href={`/story?title=${props.title}`}>
+        <Link as={`/story/${props.id}`}  href={`/story/${props.id}`}>
             <a>{props.title}</a>
         </Link>
+        <style jsx global>{`
+                * {
+                    font-family: Helvetica
+                }
+            `}
+        </style>
         <style jsx>
             {`
                 li {
@@ -27,7 +23,7 @@ const PostLink = props => (
 
                 a {
                     text-decoration: none;
-                    color: blue;
+                    color: #CC838F;
                 }
 
                 a:hover {
@@ -38,20 +34,18 @@ const PostLink = props => (
     </li>
 )
 
-export default () => (
+const Index = props => (
     <Layout>
         <h1>Latest Writing Prompts</h1>
-        <ul>
-            { getStories().map(story => (
-                <li key={story.id}>
-                    <PostLink id={story.id} title={story.title} />
-                </li>
+        <div>
+            { props.stories.map(story => (
+                <PostLink id={story.id} title={story.title} />
             )) }
-        </ul>
+        </div>
         <style jsx>
             {`
                 h1, a {
-                    font-familt: 'Arial';
+                    color: #0C5647;
                 }
 
                 ul {
@@ -62,3 +56,11 @@ export default () => (
 
     </Layout>
 )
+
+Index.getInitialProps = async () => {
+    const storyData = await import(`../stories/storyStore.json`)
+      
+    return storyData
+}
+
+export default Index
