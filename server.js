@@ -1,8 +1,9 @@
 const express = require('express')
 const next = require('next')
 const { readFile } = require('fs')
-const { writeFileSync } = require('fs')
 const { writeFile } = require('fs')
+const { readdir } = require('fs')
+
 
 
 const readFileAsync = fileName => new Promise((resolve, reject) =>
@@ -41,7 +42,21 @@ app
 
             const rawData = await readFileAsync('stories/' + req.query.id + '.json')
             const jsonData = JSON.parse(rawData)
-            res.json(jsonData)
+            res.send(jsonData)
+        })
+
+        server.get('/allStories', async (_, res) => {
+
+            var storyNames = []
+
+            await readdir("./stories", function(err, files) {
+                console.log('Found the following files: ' + files)
+                files.forEach(file => {
+                    storyNames.push({'id': file.replace('.json', '')})
+                  })
+                  console.log(storyNames)
+                res.json({'storyNames': storyNames})
+            })
         })
 
         server.post('/makeStory', async (req, res) => { 

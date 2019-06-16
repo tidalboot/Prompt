@@ -7,7 +7,7 @@ const Header = () => (
             <a>Home</a>
         </Link>
         <Link href="/write">
-            <a>Writing</a>
+            <a>Write</a>
         </Link>
         <style jsx>{`
             a {

@@ -7,8 +7,8 @@ class Write extends React.Component {
     constructor() {
         super()
         this.state = {
-            title: "Give it a good name",
-            contents: "What's the next story?"
+            title: "",
+            contents: ""
         }
 
         this.handleChange = this.handleChange.bind(this)
@@ -40,9 +40,11 @@ class Write extends React.Component {
             }
           })
 
-        alert(this.state.title + 'has been stored!');
-        console.log(this.state.contents)
         event.preventDefault();
+
+        const host = process.env.NODE_ENV == 'development' ? 'http://localhost:3000' : 'https://prompt.sloppy.zone'
+
+        window.location.href = host;
       }
 
     render() { 
@@ -51,13 +53,13 @@ class Write extends React.Component {
                 <div>
                     <label>
                         Title:
-                        <input value={this.state.title} onChange={this.handleChange} name="title" />
+                        <input placeholder="Give it a good name" value={this.state.title} onChange={this.handleChange} name="title" />
                     </label>
                 </div>
                 <div>
                     <label>
                         Essay:
-                        <textarea value={this.state.contents} onChange={this.handleChange} name="contents" />
+                        <textarea placeholder="What's the next story?" value={this.state.contents} onChange={this.handleChange} name="contents" />
                     </label>
                 </div>
                 <input type="submit" value="Submit" onClick={this.handleSubmit} />

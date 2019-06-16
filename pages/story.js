@@ -32,7 +32,7 @@ Story.getInitialProps = async context => {
 
     console.log('getting response from' + host)
     const response = await fetch(host + '/storyData?id=' + context.query.id)
-
+    
     return await response.json()
 }
 
