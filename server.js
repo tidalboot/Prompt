@@ -1,6 +1,8 @@
 const express = require('express')
 const next = require('next')
 const { readFile } = require('fs')
+const { writeFileSync } = require('fs')
+const { writeFile } = require('fs')
 
 
 const readFileAsync = fileName => new Promise((resolve, reject) =>
@@ -8,6 +10,15 @@ const readFileAsync = fileName => new Promise((resolve, reject) =>
         if (err)
             return reject(err)
         return resolve(data)
+    })
+);
+
+const writeFileAsync = (path, contents) => new Promise((resolve, reject) =>
+    writeFile(path, contents, (err) => {
+        console.log("Writing...")
+        if (err)
+            return reject(err)
+        return resolve()
     })
 );
 
@@ -28,9 +39,26 @@ app
 
         server.get('/storyData', async (req, res) => {
 
-            const rawData = await readFileAsync('../stories/' + req.query.id + '.json')
+            const rawData = await readFileAsync('stories/' + req.query.id + '.json')
             const jsonData = JSON.parse(rawData)
             res.json(jsonData)
+        })
+
+        server.post('/makeStory', async (req, res) => { 
+
+            const story = { title: req.query.title, contents: req.query.contents  }
+            const formedStoryContent = { 
+                "title": story.title,
+                "content": story.contents
+            }
+            const stringified = JSON.stringify(formedStoryContent)
+
+            console.log("Story title is " + story.title)
+            console.log("and the contents are " + stringified)
+
+            await writeFileAsync('./stories/' + story.title + '.json', stringified)
+
+            res.sendStatus(200)
         })
 
         server.get('*', (req, res) => {
@@ -41,8 +69,5 @@ app
             if (err) throw err
             console.log('> Ready on http://localhost:3000')
         })
-    .catch(exception => {
-        console.log(exception.stack)
-        process.exit(1)
-    })
-})
+   
+}).catch()

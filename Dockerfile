@@ -11,4 +11,5 @@ WORKDIR /app
 COPY --from=installation /app /app
 COPY ./ /app
 
+RUN npm run build
 ENTRYPOINT npm start
